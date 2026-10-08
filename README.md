@@ -1,46 +1,52 @@
-# GriidAi — تشغيل محلي
+# GriidAi Website
 
-المشروع يحتوي على الصفحات السبع والكود والصور، بما فيها آخر التعديلات المحلية. لا يحتاج عملية build أو npm install، ولا ينشر أي تغييرات تلقائيًا.
+A seven-page marketing website for GriidAi, including the platform, spatial analysis, solutions, team, and pricing pages. All site code and images are included. Running locally requires no dependency installation or build step.
 
-## Windows
-1. ثبّت Node.js إذا لم يكن موجودًا على جهازك.
-2. فك ضغط الملف بالكامل.
-3. افتح START-WINDOWS.bat داخل مجلد griidai-local.
-4. افتح http://localhost:3000 في المتصفح، واترك نافذة التشغيل مفتوحة.
+[View the live website](https://abdelrahmanembaby-oss.github.io/moh_web/)
 
-## أي نظام مع Node.js
-افتح Terminal داخل مجلد griidai-local وشغّل:
+## Run on Windows
+
+1. Install Node.js 18 or newer if it is not already installed.
+2. Clone this repository or download and extract the complete project.
+3. Open `START-WINDOWS.bat` inside the project folder.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser and keep the server window open.
+
+## Run with Node.js
+
+Open a terminal in the project folder and run:
 
 ```sh
 npm start
 ```
 
-ثم افتح http://localhost:3000. لإيقاف الموقع اضغط Ctrl+C.
+Visit [http://localhost:3000](http://localhost:3000). Press `Ctrl+C` in the terminal to stop the server.
 
-## بديل باستخدام Python
-إذا كان Python 3 متوفرًا:
+## Alternative: Python
+
+If Python 3 is installed, run:
 
 ```sh
 python -m http.server 3000 --bind 127.0.0.1 --directory dist
 ```
 
-## التعديل
-- الرئيسية: dist/index.html
-- الصفحات: dist/about/، dist/platform/، dist/solutions/، dist/agentic-geoai/، dist/spatial-analysis/، dist/pricing/
-- التنسيق والتفاعلات: ملفات CSS وJS في dist/
-- الصور: dist/assets/
+Then visit [http://localhost:3000](http://localhost:3000).
 
-احفظ التعديل ثم حدّث المتصفح. افتح الموقع عبر localhost وليس بالنقر على index.html لأن بعض الروابط تبدأ من جذر الموقع.
+## Edit the website
 
-فيديو YouTube والروابط الخارجية تحتاج اتصال إنترنت. الصور والكود موجودة داخل المشروع. هذه نسخة موقع التعريف، وليست كود تطبيق GriidAi للتحليل الجغرافي.
+- Homepage: `dist/index.html`
+- Other pages: `dist/about/`, `dist/platform/`, `dist/solutions/`, `dist/agentic-geoai/`, `dist/spatial-analysis/`, and `dist/pricing/`
+- Styles and interactions: CSS and JavaScript files in `dist/`
+- Images and fonts: `dist/assets/`
 
-النسخة المستضافة لم تتغير ولم يتم إيقافها ضمن هذا التسليم.
+Save your changes and refresh the browser. Use the local server rather than opening `index.html` directly, because internal links use paths relative to the website root.
 
-## GitHub Pages
+YouTube videos and external links require an internet connection. Site images and code are stored locally. This repository contains the GriidAi marketing website; it does not contain the geospatial analysis application's source code.
 
-Live website: https://abdelrahmanembaby-oss.github.io/moh_web/
+## GitHub Pages deployment
 
-Pushing to `main` builds and deploys `dist/` through `.github/workflows/pages.yml`. The build adjusts internal links, images, fonts, and pricing data requests for the repository path. Local files keep working at http://localhost:3000.
+The live website is hosted at [https://abdelrahmanembaby-oss.github.io/moh_web/](https://abdelrahmanembaby-oss.github.io/moh_web/).
+
+Pushing to `main` automatically builds and deploys `dist/` through `.github/workflows/pages.yml`. The build adjusts internal links, images, fonts, and pricing data requests for the repository path. Local files continue to work at [http://localhost:3000](http://localhost:3000).
 
 To prepare the Pages artifact locally:
 
@@ -48,4 +54,4 @@ To prepare the Pages artifact locally:
 npm run build:pages
 ```
 
-The generated `.deploy/` folder and local QA files are excluded from Git.
+The generated `.deploy/` folder and local QA files are excluded from Git. Running or editing the project locally does not publish changes; deployment starts when changes are pushed to `main`.
