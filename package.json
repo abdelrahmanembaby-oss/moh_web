@@ -1,0 +1,12 @@
+{
+  "name": "griidai-local",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.cjs",
+    "build:pages": "node scripts/build-pages.cjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

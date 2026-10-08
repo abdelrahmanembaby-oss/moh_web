@@ -1,0 +1,27 @@
+{
+  "source": "https://app.griidai.com/pricing",
+  "verified_on": "2026-10-08",
+  "starter_access": {
+    "starter_credits": 200,
+    "storage_limit_gb": 5,
+    "max_file_upload_size_gb": 2
+  },
+  "tiers": [
+    {
+      "tier": "analyst",
+      "allocated_credits": 800,
+      "monthly_price": 20,
+      "yearly_price": 192,
+      "storage_limit_bytes": 53687091200,
+      "max_file_upload_bytes": 10737418240
+    },
+    {
+      "tier": "pro",
+      "allocated_credits": 3500,
+      "monthly_price": 100,
+      "yearly_price": 960,
+      "storage_limit_bytes": 214748364800,
+      "max_file_upload_bytes": 53687091200
+    }
+  ]
+}
