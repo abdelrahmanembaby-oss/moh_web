@@ -1,6 +1,6 @@
 # GriidAi Website
 
-A seven-page marketing website for GriidAi, including the platform, spatial analysis, solutions, team, and pricing pages. All site code and images are included. Running locally requires no dependency installation or build step.
+An eight-page marketing website for GriidAi, including the platform, spatial analysis, solutions, team, and pricing pages. All site code and images are included. Running locally requires no dependency installation or build step.
 
 [View the live website](https://abdelrahmanembaby-oss.github.io/moh_web/)
 
@@ -34,7 +34,7 @@ Then visit [http://localhost:3000](http://localhost:3000).
 ## Edit the website
 
 - Homepage: `dist/index.html`
-- Other pages: `dist/about/`, `dist/platform/`, `dist/solutions/`, `dist/agentic-geoai/`, `dist/spatial-analysis/`, and `dist/pricing/`
+- Other pages: `dist/about/`, `dist/platform/`, `dist/solutions/`, `dist/agentic-geoai/`, `dist/spatial-analysis/`, `dist/pricing/`, and `dist/contact-sales/`
 - Styles and interactions: CSS and JavaScript files in `dist/`
 - Images and fonts: `dist/assets/`
 

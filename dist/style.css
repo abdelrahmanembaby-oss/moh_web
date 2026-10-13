@@ -21,3 +21,5 @@ nav a[aria-current="page"]{color:var(--teal);text-decoration:underline;text-unde
 
 .solutions-menu-toggle svg{display:block;transition:transform .18s ease}.solutions-menu-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
 @media(prefers-reduced-motion:reduce){.solutions-menu-toggle svg{transition:none}}
+
+.footer-links{align-items:center;flex-wrap:wrap}.footer-links .footer-sales{font-size:12px;gap:12px;padding:10px 16px;min-height:42px}@media(max-width:1000px){.footer-main{flex-wrap:wrap}}
