@@ -34,7 +34,7 @@ Then visit [http://localhost:3000](http://localhost:3000).
 ## Edit the website
 
 - Homepage: `dist/index.html`
-- Other pages: `dist/about/`, `dist/platform/`, `dist/solutions/`, `dist/agentic-geoai/`, `dist/spatial-analysis/`, `dist/pricing/`, and `dist/contact-sales/`
+- Other pages: `dist/about/`, `dist/platform/`, `dist/solutions/`, `dist/agentic-geoai/`, `dist/spatial-analysis/`, `dist/pricing/`, and `dist/contact-sales.html`
 - Styles and interactions: CSS and JavaScript files in `dist/`
 - Images and fonts: `dist/assets/`
 
@@ -55,3 +55,5 @@ npm run build:pages
 ```
 
 The generated `.deploy/` folder and local QA files are excluded from Git. Running or editing the project locally does not publish changes; deployment starts when changes are pushed to `main`.
+
+The Contact Sales page uses the legacy `/contact-sales.html` path. The previous `/contact-sales/` path redirects to it and preserves query parameters and anchors. To restore `https://www.griidai.com/contact-sales.html`, deploy these static files to the existing hosting service for that domain; publishing to this GitHub Pages repository does not update that separate host.

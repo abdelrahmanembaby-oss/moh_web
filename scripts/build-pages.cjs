@@ -34,14 +34,14 @@ walk(output);
 fs.writeFileSync(path.join(output, '.nojekyll'), '');
 // Verify emitted page links and assets before uploading the artifact.
 let references = 0;
-for (const route of ['', 'platform', 'agentic-geoai', 'spatial-analysis', 'solutions', 'about', 'pricing', 'contact-sales']) {
-  const file = path.join(output, route, 'index.html');
+for (const route of ['', 'platform', 'agentic-geoai', 'spatial-analysis', 'solutions', 'about', 'pricing', 'contact-sales', 'contact-sales.html']) {
+  const file = route.endsWith('.html') ? path.join(output, route) : path.join(output, route, 'index.html');
   const html = fs.readFileSync(file, 'utf8');
   const links = [...html.matchAll(/\b(?:href|src)=["']([^"']+)["']/g)].map(match => match[1]);
   const sources = [...html.matchAll(/\b(?:srcset|imagesrcset)=["']([^"']+)["']/g)].flatMap(match => match[1].split(',').map(item => item.trim().split(/\s+/)[0]));
   for (const href of [...links, ...sources]) {
     if (!href.startsWith('/') && !href.startsWith('#')) continue;
-    const parsed = new URL(href, 'https://preview.invalid' + basePath + (route ? route + '/' : ''));
+    const parsed = new URL(href, 'https://preview.invalid' + basePath + (route.endsWith('.html') ? route : route ? route + '/' : ''));
     if (!parsed.pathname.startsWith(basePath)) throw new Error('Path escapes Pages base: ' + href);
     const relative = decodeURIComponent(parsed.pathname.slice(basePath.length));
     let target = path.join(output, relative);
