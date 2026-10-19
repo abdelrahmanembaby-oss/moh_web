@@ -12,3 +12,13 @@
 @media(max-width:1023px){.pricing-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pricing-page{padding-inline:24px}.pricing-intro h1{font-size:34px}.price-card h2{line-height:24px}.pricing-capacity table{font-size:13px}}
 @media(max-width:767px){.pricing-page{padding:36px 16px 48px}.pricing-toolbar{margin-bottom:36px;align-items:flex-start;gap:12px}.pricing-toolbar-actions{gap:8px;flex-direction:column;align-items:flex-end}.pricing-platform-link{font-size:11px;line-height:18px;padding:0}.pricing-secure{font-size:12px;line-height:20px}.pricing-intro h1{font-size:30px;line-height:36px;letter-spacing:-.75px;max-width:480px}.pricing-intro>p{font-size:14px;line-height:23px}.billing-pill{padding:8px 12px;gap:10px}.billing-pill>span{font-size:12px}.billing-controls{margin-top:28px}.pricing-save{font-size:9px;padding:2px 6px}.pricing-grid{grid-template-columns:1fr;max-width:560px}.price-card{padding:24px}.price-card-heading{min-height:36px}.price-description{min-height:0}.price-note{min-height:0}.price-cta{min-height:48px}.pricing-terms{padding:16px;margin-bottom:48px}.pricing-capacity table{font-size:12px;line-height:18px;min-width:600px}.pricing-help{right:16px;bottom:16px}.pricing-help summary{font-size:12px;padding:10px 14px}.pricing-disclaimer{padding-bottom:18px}}
 @media(prefers-reduced-motion:reduce){.billing-switch,.billing-switch span,.price-cta{transition:none}}
+
+/* Match the updated plan comparison while keeping public plan selection available. */
+.price-card[data-tier="analyst"],.price-card[data-tier="pro"]{border:2px solid var(--price-brand);padding:23px}
+.price-card li strong{color:var(--price-text)}
+.price-card ul{display:flex;flex-direction:column;justify-content:space-between;gap:12px}.price-card li+li{margin-top:0}
+.price-value strong{font-size:40px;line-height:48px}.price-value{min-height:64px}
+@media(min-width:1024px){.price-card{min-height:600px}}
+@media(max-width:767px){.price-card[data-tier="analyst"],.price-card[data-tier="pro"]{padding:23px}}
+
+@media(min-width:768px) and (max-width:1190px){.pricing-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}

@@ -2,10 +2,10 @@
   const toggle = document.getElementById('billing-toggle');
   if (!toggle) return;
   const fallback = {
-    starter_access: {starter_credits:200,storage_limit_gb:5,max_file_upload_size_gb:2},
+    starter_access: {starter_credits:200,storage_limit_gb:10,max_file_upload_size_gb:5},
     tiers: [
-      {tier:'analyst',monthly_price:20,yearly_price:192,allocated_credits:800,storage_limit_bytes:53687091200,max_file_upload_bytes:10737418240},
-      {tier:'pro',monthly_price:100,yearly_price:960,allocated_credits:3500,storage_limit_bytes:214748364800,max_file_upload_bytes:53687091200}
+      {tier:'analyst',monthly_price:40,yearly_price:192,allocated_credits:5000,storage_limit_bytes:53687091200,max_file_upload_bytes:10737418240},
+      {tier:'pro',monthly_price:100,yearly_price:960,allocated_credits:20000,storage_limit_bytes:214748364800,max_file_upload_bytes:53687091200}
     ]
   };
   let data = fallback;
@@ -48,7 +48,7 @@
   const validStarter = starter => starter && ['starter_credits','storage_limit_gb','max_file_upload_size_gb'].every(key => typeof starter[key] === 'number' && Number.isFinite(starter[key]) && starter[key] > 0);
   async function loadPrices() {
     try {
-      const snapshot = await fetch('/pricing-data.json');
+      const snapshot = await fetch('/pricing-data.json', {cache:'no-store'});
       if (snapshot.ok) {
         const saved = await snapshot.json();
         if (Array.isArray(saved.tiers) && saved.tiers.length === 2 && saved.tiers.every(validTier) && validStarter(saved.starter_access)) {data = saved; render();}
