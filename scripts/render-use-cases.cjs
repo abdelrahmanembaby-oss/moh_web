@@ -31,6 +31,6 @@ module.exports=function renderUseCases(ui){
     section('use-case-workflows','',content.workflows.title,`<div class="uc-workflow-grid">${workflowCards}</div>`,{pale:true})+
     section('use-case-industries','',content.industries.title,`<div class="hub-grid cols-2">${industryCards}</div>`)+
     section('use-case-enterprise','',content.enterprise.title,`<div class="hub-reading">${paragraphs(content.enterprise.copy)}</div><div class="actions">${button('Talk to Sales','/contact-sales.html')}${link('Enterprise','/enterprise/')}</div>`,{pale:true})+
-    section('use-case-faq','','GEO questions / FAQ',`<ul class="uc-question-index">${questions}</ul>`)+
+    section('use-case-faq','','Frequently asked questions',`<ul class="uc-question-index">${questions}</ul>`)+
     `<section class="hub-closing" id="use-case-next-step"><div class="container"><h2>${esc(content.final.title)}</h2>${paragraphs(content.final.copy)}<div class="actions">${button('Start for Free','https://app.griidai.com')}${button('Talk to Sales','/contact-sales.html',false)}</div></div></section>`;
 };

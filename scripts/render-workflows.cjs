@@ -36,6 +36,6 @@ module.exports=function renderWorkflows(ui){
     section('workflow-data','',content.dataTitle,relationships,{pale:true})+
     section('workflow-reuse','',content.reuse.title,`<div class="hub-reading">${paragraphs(content.reuse.copy)}</div>`)+
     section('workflow-status','',content.statusTitle,table(['Status','Meaning'],content.statuses.map(row=>row.map(esc))),{pale:true})+
-    section('workflow-faq','','GEO questions / FAQ',faq(content.faqs))+
+    section('workflow-faq','','Frequently asked questions',faq(content.faqs))+
     `<section class="hub-closing" id="workflow-next-step"><div class="container"><h2>${esc(content.hero.title)}</h2><div class="actions">${button('Start for Free','https://app.griidai.com')}${button('Talk to Sales','/contact-sales.html',false)}</div></div></section>`;
 };
