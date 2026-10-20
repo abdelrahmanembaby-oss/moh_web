@@ -17,7 +17,7 @@ function walk(folder) {
   for (const entry of fs.readdirSync(folder, {withFileTypes:true})) {
     const file = path.join(folder, entry.name);
     if (entry.isDirectory()) {walk(file);continue;}
-    if (!/\.(html|css|js|json)$/.test(entry.name)) continue;
+    if (!/\.(html|css|js|json|xml)$/.test(entry.name)) continue;
     let text = fs.readFileSync(file, 'utf8');
     text = text.replaceAll(oldOrigin, siteUrl);
     text = text.replace(/(["'`])\/(?!\/)/g, (_, quote) => quote + basePath);
@@ -34,7 +34,7 @@ walk(output);
 fs.writeFileSync(path.join(output, '.nojekyll'), '');
 // Verify emitted page links and assets before uploading the artifact.
 let references = 0;
-for (const route of ['', 'platform', 'agentic-geoai', 'spatial-analysis', 'solutions', 'about', 'pricing', 'contact-sales', 'contact-sales.html']) {
+for (const route of ['', 'platform', 'agentic-geoai', 'spatial-analysis', 'solutions', 'about', 'pricing', 'contact-sales', 'contact-sales.html', 'data', 'industries', 'use-cases', 'workflows', 'ecosystem', 'enterprise', 'ecosystem/express-interest']) {
   const file = route.endsWith('.html') ? path.join(output, route) : path.join(output, route, 'index.html');
   const html = fs.readFileSync(file, 'utf8');
   const links = [...html.matchAll(/\b(?:href|src)=["']([^"']+)["']/g)].map(match => match[1]);
@@ -51,7 +51,7 @@ for (const route of ['', 'platform', 'agentic-geoai', 'spatial-analysis', 'solut
     if (parsed.hash && target.endsWith('.html')) {
       const targetHtml = fs.readFileSync(target, 'utf8');
       const id = decodeURIComponent(parsed.hash.slice(1));
-      if (!targetHtml.includes('id="' + id + '"') && !targetHtml.includes("id='" + id + "'")) throw new Error('Missing deployed anchor: ' + href);
+      if (!targetHtml.includes('id="' + id + '"') && !targetHtml.includes("id='" + id + "'")) throw new Error('Missing deployed anchor in ' + route + ': ' + href);
     }
     references++;
   }

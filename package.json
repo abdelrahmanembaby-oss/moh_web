@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node server.cjs",
-    "build:pages": "node scripts/build-pages.cjs"
+    "build:content": "node scripts/build-hubs.cjs",
+    "build:pages": "node scripts/build-hubs.cjs && node scripts/build-pages.cjs"
   },
   "engines": {
     "node": ">=18"
