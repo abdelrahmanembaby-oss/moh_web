@@ -2103,3 +2103,7 @@
 
 
 #early-access .pricing-shell{padding-top:3rem}
+/* Enterprise qualification uses the existing contact-service field contract. */
+#early-access [hidden]{display:none!important}#early-access #enterprise-qualification{border:0;border-top:1px solid #d8dfd3;padding:28px 0 0;margin:10px 0 28px;min-width:0}#early-access #enterprise-qualification legend{font-size:20px;font-weight:600;color:#173c3e;padding-right:15px}#early-access .enterprise-contact-consent{display:flex;gap:12px;align-items:flex-start;font-size:13px;line-height:1.8;color:#465c5b}#early-access .enterprise-contact-consent input{margin-top:6px;width:18px;height:18px;flex-shrink:0;accent-color:#287588}#early-access .enterprise-contact-consent a{text-decoration:underline}#early-access .enterprise-contact-status{border:1px solid #c4d5c8;padding:24px;background:#f2f6ef;border-radius:4px;margin:0 0 25px}#early-access .enterprise-contact-status h3{font-size:22px;margin:0 0 12px;color:#173c3e}#early-access .enterprise-contact-status p{font-size:14px;line-height:1.8}#early-access .enterprise-contact-status a{font-size:14px;text-decoration:underline;color:#287588}
+#early-access .enterprise-contact-status .btn{display:block;margin-top:20px}
+#early-access form[data-enterprise="true"] :is(.form-input,.form-textarea){border-color:#778b80}#early-access form[data-enterprise="true"] :is(.form-input,.form-textarea):focus-visible{outline:2px solid #287588;outline-offset:2px}

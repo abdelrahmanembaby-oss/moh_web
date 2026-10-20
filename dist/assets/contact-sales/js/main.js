@@ -204,6 +204,7 @@ function validateCaptcha() {
 function initForm() {
   const form = document.getElementById('early-access-form');
   const gisUsageInput = document.getElementById('gis-usage');
+  window.griidaiEnterpriseContact?.init(form);
   
   if (gisUsageInput) {
     gisUsageInput.addEventListener('input', updateWordCount);
@@ -245,6 +246,8 @@ function showError(fieldId, message) {
   
   if (field) {
     field.style.borderColor = 'hsl(0, 72%, 48%)';
+    field.setAttribute('aria-invalid', 'true');
+    if (errorEl) field.setAttribute('aria-describedby', fieldId + '-error');
   }
   
   if (errorEl) {
@@ -259,10 +262,12 @@ function clearError(fieldId) {
   
   if (field) {
     field.style.borderColor = '';
+    field.removeAttribute('aria-invalid');
   }
   
   if (errorEl) {
     errorEl.classList.add('hidden');
+    errorEl.textContent = '';
   }
 }
 
@@ -270,11 +275,13 @@ function clearAllErrors() {
   const errorEls = document.querySelectorAll('.form-error');
   errorEls.forEach(function(el) {
     el.classList.add('hidden');
+    el.textContent = '';
   });
   
   const inputs = document.querySelectorAll('.form-input, .form-textarea');
   inputs.forEach(function(input) {
     input.style.borderColor = '';
+    input.removeAttribute('aria-invalid');
   });
 }
 
@@ -302,7 +309,7 @@ function validateForm() {
 
   // Phone (required)
   const phone = document.getElementById('phone');
-  if (phone && !phone.value.trim()) {
+  if (phone && phone.required && !phone.value.trim()) {
     showError('phone', 'Phone number is required');
     isValid = false;
   }
@@ -323,7 +330,7 @@ function validateForm() {
 
   // Platform usage (required)
   const gisUsage = document.getElementById('gis-usage');
-  if (gisUsage && !gisUsage.value.trim()) {
+  if (gisUsage && gisUsage.required && !gisUsage.value.trim()) {
     showError('gis-usage', 'This field is required');
     isValid = false;
   }
@@ -334,6 +341,8 @@ function validateForm() {
     isValid = false;
   }
   
+  if (window.griidaiEnterpriseContact?.active && !window.griidaiEnterpriseContact.validate()) isValid = false;
+
   // Captcha validation
   if (!validateCaptcha()) {
     isValid = false;
@@ -344,12 +353,16 @@ function validateForm() {
 
 function handleFormSubmit(e) {
   e.preventDefault();
-  
+  const form = document.getElementById('early-access-form');
+  const enterprise = window.griidaiEnterpriseContact;
+  if (form.dataset.submitting === 'true' || (enterprise?.active && enterprise.state.submitted)) return;
+
   // Check honeypot
   const honeypot = document.getElementById('website');
   if (honeypot && honeypot.value) {
-    // Bot detected, silently fail
-    showSuccessState();
+    // Keep the honeypot out of the submission service and conversion metrics.
+    if (enterprise?.active) enterprise.error();
+    else showSuccessState();
     return;
   }
   
@@ -362,12 +375,13 @@ function handleFormSubmit(e) {
   const btnSpinner = document.getElementById('btn-spinner');
   
   // Show loading state
+  form.dataset.submitting = 'true';
   submitBtn.disabled = true;
   btnText.textContent = 'Submitting...';
   btnSpinner.classList.remove('hidden');
   
   // Collect form data
-  const formData = {
+  let formData = {
     fullName: document.getElementById('full-name').value.trim(),
     email: document.getElementById('email').value.trim(),
     phone: document.getElementById('phone').value.trim(),
@@ -380,6 +394,8 @@ function handleFormSubmit(e) {
     timestamp: new Date().toISOString()
   };
   
+  if (enterprise?.active) formData = enterprise.enrich(formData);
+
 // Google Apps Script integration
 //const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_DQVoka8Ng6l9N0phVPdWPNQGeIcnVzpxnjgfjSPXMZybS1QHhm1C1BgKo4Qbtpq6/exec';
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwl36CRPJ8PA6PSJtMWOeWT6SA_4zq3S98WHrvecIyUMBMo-Kd5eWD63d_TUYvtH4flxw/exec';
@@ -393,16 +409,19 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwl36CRPJ8PA6
     },
     body: JSON.stringify(formData)
   })
-  .then(function() {
-    showSuccessState();
+  .then(function(response) {
+    if (enterprise?.active) enterprise.response(response);
+    else showSuccessState();
   })
   .catch(function(error) {
-    alert('Submission failed. Please try again.');
+    if (enterprise?.active) enterprise.error();
+    else alert('Submission failed. Please try again.');
     console.error('Error:', error);
   })
   .finally(function() {
-    submitBtn.disabled = false;
-    btnText.textContent = 'Submit';
+    form.dataset.submitting = 'false';
+    submitBtn.disabled = Boolean(enterprise?.active && enterprise.state.submitted);
+    btnText.textContent = submitBtn.disabled ? 'Request sent' : 'Submit';
     btnSpinner.classList.add('hidden');
   });
   
@@ -430,6 +449,7 @@ function resetForm() {
   
   if (form) {
     form.reset();
+    window.griidaiEnterpriseContact?.reset();
     updateWordCount();
   }
   
