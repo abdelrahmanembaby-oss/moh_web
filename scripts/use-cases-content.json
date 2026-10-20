@@ -1,0 +1,421 @@
+{
+  "source": {
+    "filename": "GriidAi_Use_Cases_Hub_Content_UX_Development_Specification_P0.docx",
+    "sha256": "f9524ca2663ca81dab068d30e908a7e10639b2d3f16a7b1b9891baa23c2b72dc",
+    "visualOverride": "User requested generated conceptual artwork instead of software screenshots."
+  },
+  "hero": {
+    "eyebrow": "Use Cases",
+    "title": "Start with the spatial question. Build the analysis around it.",
+    "copy": "Explore common geospatial questions—from choosing a site and identifying a coverage gap to understanding flood exposure, drainage patterns or vegetation condition. GriidAi helps connect the question to data, supported spatial analysis, human review and usable outputs."
+  },
+  "definition": {
+    "title": "What is a geospatial use case?",
+    "paragraphs": [
+      "A geospatial use case is a real-world question that depends on location, distance, spatial relationships, terrain, environmental conditions, networks or change over space. The answer usually requires a combination of data, GIS operations, assumptions, validation and a map or analytical output—not just a single GIS tool.",
+      "In GriidAi, the use case should remain connected to the method. The user defines the question, brings or discovers relevant data, reviews the proposed plan, approves supported analysis, validates the result and decides how the output should be used."
+    ]
+  },
+  "grid": {
+    "title": "Choose the question you need to answer",
+    "intro": "Start from the task your team recognizes. Each use case should show the question, the spatial evidence involved, the expected output, and the strongest published destination for deeper detail."
+  },
+  "records": [
+    {
+      "id": "site-selection",
+      "name": "Site Selection",
+      "question": "Which candidate locations deserve deeper review?",
+      "evidence": "Criteria, constraints, proximity, overlays, ranked or filtered candidates when method is explicit.",
+      "proofTitle": "Compare candidate locations with criteria your team can review",
+      "paragraphs": [
+        "A site-selection use case should begin by making the decision criteria explicit: candidate locations, constraints, surrounding conditions, relevant proximity relationships, environmental or physical-risk context, and any approved scoring or weighting logic. GriidAi can then help organize the data and supported analysis into an inspectable plan rather than hiding the method inside a single AI recommendation."
+      ],
+      "sequence": [
+        "Candidate/site layer in the workspace.",
+        "Supporting context layers or user-provided business data.",
+        "Implementation plan with criteria / spatial operations.",
+        "Review of thresholds, units, assumptions and outputs.",
+        "Map and table comparing candidate evidence.",
+        "Export or next-step handoff."
+      ],
+      "image": "site-selection",
+      "industries": [
+        0,
+        2,
+        3
+      ],
+      "workflows": [],
+      "patterns": [
+        "Screen",
+        "Compare"
+      ],
+      "fallbackUrl": "/industries/#location-intelligence",
+      "detailUrl": null,
+      "publicationStatus": "Published",
+      "productStatus": "Example",
+      "indexStatus": "Noindex"
+    },
+    {
+      "id": "coverage",
+      "name": "Coverage Gap Analysis",
+      "question": "Where is service, access or facility coverage insufficient?",
+      "evidence": "Facilities, demand/population/asset locations, distance or supported network/proximity evidence, gap map.",
+      "proofTitle": "Find where service or access may be insufficient",
+      "paragraphs": [
+        "Coverage-gap analysis compares the locations of services or facilities with the people, assets or areas they are intended to serve. The exact method can depend on straight-line distance, a supported network operation, service thresholds, population or demand layers, and the quality of the underlying data."
+      ],
+      "sequence": [],
+      "image": "coverage-gap",
+      "industries": [
+        2,
+        3
+      ],
+      "workflows": [
+        "fire-station-coverage"
+      ],
+      "patterns": [
+        "Find gaps",
+        "Measure"
+      ],
+      "fallbackUrl": "/workflows/#fire-station-coverage",
+      "detailUrl": null,
+      "publicationStatus": "Published",
+      "productStatus": "Example",
+      "indexStatus": "Noindex"
+    },
+    {
+      "id": "flood-coastal",
+      "name": "Flood & Coastal Risk",
+      "question": "Which locations may be exposed under a defined flood or coastal scenario?",
+      "evidence": "Scenario layer, terrain/elevation where relevant, asset/location overlays, exposure map/table.",
+      "proofTitle": "Screen locations against a defined flood or coastal scenario",
+      "paragraphs": [
+        "Flood and coastal screening should make the scenario visible: what hazard or water-level condition is represented, what geography and period it applies to, how it is combined with assets or locations, and what the resulting exposure layer means. GriidAi should support review of these assumptions before the output is interpreted."
+      ],
+      "sequence": [],
+      "image": "flood-coastal-risk",
+      "industries": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "workflows": [
+        "sea-level-rise",
+        "storm-surge"
+      ],
+      "patterns": [
+        "Screen",
+        "Assess scenarios"
+      ],
+      "fallbackUrl": "/workflows/#sea-level-rise",
+      "detailUrl": null,
+      "publicationStatus": "Published",
+      "productStatus": "Example",
+      "indexStatus": "Noindex"
+    },
+    {
+      "id": "hydrology",
+      "name": "Hydrology Analysis",
+      "question": "How does water move across the terrain in this study area?",
+      "evidence": "DEM, flow direction/accumulation, streams, basins/subbasins, derived map outputs.",
+      "proofTitle": "Turn elevation data into terrain and drainage evidence",
+      "paragraphs": [
+        "Hydrology use cases often begin with a digital elevation model and a study area. The method may derive or use terrain/hydrology operations such as fill, flow direction, flow accumulation, stream extraction or subbasin delineation depending on the supported workflow and the question being asked."
+      ],
+      "sequence": [
+        "Select or obtain an elevation dataset for the AOI.",
+        "Inspect CRS, resolution, NoData and spatial coverage.",
+        "Review the proposed terrain/hydrology plan.",
+        "Run supported derivations and inspect intermediate outputs where useful.",
+        "Validate the stream/drainage/basin result against the use-case intent.",
+        "Export the analytical layers or continue into a downstream workflow."
+      ],
+      "image": "hydrology-analysis",
+      "industries": [
+        0,
+        1,
+        2
+      ],
+      "workflows": [
+        "dem-hydrology-stream-network"
+      ],
+      "patterns": [
+        "Understand terrain / flow",
+        "Measure"
+      ],
+      "fallbackUrl": "/workflows/#dem-hydrology-stream-network",
+      "detailUrl": null,
+      "publicationStatus": "Published",
+      "productStatus": "Example",
+      "indexStatus": "Noindex"
+    },
+    {
+      "id": "vegetation",
+      "name": "Vegetation & NDVI",
+      "question": "Where is vegetation condition higher, lower or changing across the study area?",
+      "evidence": "Satellite imagery/bands, NDVI or related index, classified or continuous raster, summary statistics.",
+      "proofTitle": "Use satellite imagery to examine vegetation condition",
+      "paragraphs": [
+        "NDVI is a vegetation index derived from red and near-infrared reflectance. A use-case page should not stop at the formula; it should show the imagery or bands used, date/area coverage, cloud or quality constraints where relevant, the calculation, the resulting raster and the way the output is summarized or interpreted for the specific task."
+      ],
+      "sequence": [
+        "Choose the study area and time period.",
+        "Use approved imagery or bring the user’s data.",
+        "Verify bands, coverage, resolution and quality constraints.",
+        "Review the calculation / processing plan.",
+        "Generate and inspect the NDVI output.",
+        "Summarize or export results for the use-case context."
+      ],
+      "image": "vegetation-ndvi",
+      "industries": [
+        0,
+        1
+      ],
+      "workflows": [
+        "ndvi-analysis"
+      ],
+      "patterns": [
+        "Measure",
+        "Compare"
+      ],
+      "fallbackUrl": "/workflows/#ndvi-analysis",
+      "detailUrl": null,
+      "publicationStatus": "Published",
+      "productStatus": "Example",
+      "indexStatus": "Noindex"
+    }
+  ],
+  "process": {
+    "title": "From a spatial question to a result you can inspect",
+    "steps": [
+      [
+        "Ask",
+        "Define the business or analytical question, geography, time period and expected decision context."
+      ],
+      [
+        "Data",
+        "Bring your own layers or discover relevant public data, then check coverage and metadata."
+      ],
+      [
+        "Plan",
+        "Translate the use case into supported spatial operations and expected outputs."
+      ],
+      [
+        "Review",
+        "Check inputs, method, units, assumptions, validation approach and outputs before execution."
+      ],
+      [
+        "Execute",
+        "Run the approved spatial analysis."
+      ],
+      [
+        "Validate",
+        "Inspect maps, tables, statistics, intermediate layers and sanity checks."
+      ],
+      [
+        "Use the result",
+        "Export, communicate or continue the next analytical step. Keep the final decision with the user."
+      ]
+    ]
+  },
+  "patterns": {
+    "title": "Use cases by decision pattern",
+    "rows": [
+      [
+        "Screen",
+        "Narrow a large set to the locations or assets that meet explicit spatial conditions.",
+        "Site screening, exposure screening, proximity screening."
+      ],
+      [
+        "Compare",
+        "Apply the same reviewed method across alternatives or a portfolio.",
+        "Candidate-site comparison, portfolio exposure comparison."
+      ],
+      [
+        "Measure",
+        "Quantify distance, overlap, area, elevation, index values or other spatial properties.",
+        "Proximity, buffer/intersection, NDVI summary, terrain derivatives."
+      ],
+      [
+        "Find gaps",
+        "Identify where service, access, coverage or supporting conditions are absent or weak.",
+        "Coverage gaps, facility access gaps."
+      ],
+      [
+        "Understand terrain / flow",
+        "Derive terrain or hydrologic context from elevation.",
+        "Slope/aspect, flow direction, accumulation, streams, subbasins."
+      ],
+      [
+        "Assess scenarios",
+        "Compare locations or assets against a defined external scenario.",
+        "Sea-level-rise scenario, storm-surge exposure."
+      ]
+    ]
+  },
+  "proofTitle": "Featured proof stories",
+  "workflows": {
+    "title": "Featured workflows as product proof",
+    "rows": [
+      [
+        "DEM Hydrology & Stream Network",
+        "Hydrology Analysis",
+        "Turn elevation into drainage and stream-network evidence using a reviewable terrain/hydrology workflow."
+      ],
+      [
+        "NDVI Analysis",
+        "Vegetation & NDVI",
+        "Calculate and inspect a vegetation index from approved imagery or user-provided raster inputs."
+      ],
+      [
+        "Fire Station Coverage",
+        "Coverage Gap Analysis",
+        "Explore how facilities relate to the areas or populations they are intended to serve, using the method actually supported."
+      ],
+      [
+        "Sea-Level Rise",
+        "Flood & Coastal Risk",
+        "Compare locations or assets against a defined sea-level scenario."
+      ],
+      [
+        "Storm Surge",
+        "Flood & Coastal Risk",
+        "Screen coastal exposure under a defined storm-surge scenario."
+      ]
+    ]
+  },
+  "data": {
+    "title": "The same question can produce a different answer when the data or method changes",
+    "checks": [
+      [
+        "Geographic coverage",
+        "A dataset or model may not support the entire requested area."
+      ],
+      [
+        "Temporal coverage",
+        "A historical observation, forecast, scenario and current snapshot are not interchangeable."
+      ],
+      [
+        "Resolution / scale",
+        "The level of detail can change what the analysis can support."
+      ],
+      [
+        "CRS / units",
+        "Distance, area and raster operations can be invalid when coordinate systems or units are mishandled."
+      ],
+      [
+        "Missing / NoData",
+        "Absence of a value is not automatically zero or “not exposed.”"
+      ],
+      [
+        "Method / thresholds",
+        "A 5 km radius, 15-minute network threshold or scenario level is a user-visible assumption, not a hidden default."
+      ],
+      [
+        "License / attribution",
+        "Data rights affect what can be reused, exported or published."
+      ]
+    ]
+  },
+  "review": {
+    "title": "AI can help organize the analysis. Experts still control the method and result.",
+    "moments": [
+      [
+        "Before execution",
+        "Input layers, geography, variables, parameters, units, method, expected output."
+      ],
+      [
+        "During multi-step analysis",
+        "Intermediate layers, warnings, data checks, failed or partial steps where applicable."
+      ],
+      [
+        "After execution",
+        "Map/table/statistics, sanity checks, spatial patterns, missing data, scenario interpretation."
+      ],
+      [
+        "Before decision use",
+        "Method boundary, intended use, uncertainty/limitations and whether deeper expert or engineering review is required."
+      ]
+    ]
+  },
+  "industries": {
+    "title": "The same use case changes meaning across industries",
+    "rows": [
+      [
+        "AEC & Environmental Consulting",
+        "Site screening, hydrology, environmental constraints, vegetation, flood/coastal context.",
+        "/industries/aec-environmental/"
+      ],
+      [
+        "Climate Resilience & Physical Risk",
+        "Flood/coastal screening, asset exposure, terrain/hydrology context.",
+        "/industries/climate-resilience/"
+      ],
+      [
+        "Utilities & Critical Infrastructure",
+        "Coverage, proximity, asset/network context, hydrology and physical-risk screening.",
+        "/industries/utilities-critical-infrastructure/"
+      ],
+      [
+        "Location & Portfolio Intelligence",
+        "Site selection, portfolio comparison, proximity, surrounding conditions, coverage.",
+        "/industries/location-intelligence/"
+      ]
+    ]
+  },
+  "enterprise": {
+    "title": "Turn a recurring spatial question into a repeatable team capability",
+    "copy": "GriidAi can become a place to standardize the inputs, workflow logic, validation points and outputs—subject to the enterprise capabilities that are actually approved for the current release."
+  },
+  "questions": [
+    [
+      "What is a geospatial use case?",
+      "Direct-answer section."
+    ],
+    [
+      "How can AI help with GIS use cases?",
+      "Question-to-result + Human Review sections."
+    ],
+    [
+      "How do you validate an AI-generated GIS analysis?",
+      "Human-guided reliability."
+    ],
+    [
+      "Can GIS be used for site selection?",
+      "Site Selection proof / detail route."
+    ],
+    [
+      "How do you identify a service coverage gap with GIS?",
+      "Coverage Gap proof / detail route."
+    ],
+    [
+      "How can GIS be used for flood or coastal risk screening?",
+      "Flood & Coastal proof."
+    ],
+    [
+      "How do you extract drainage or streams from a DEM?",
+      "Hydrology proof / workflow."
+    ],
+    [
+      "What is NDVI and how is it used?",
+      "Vegetation proof / workflow."
+    ],
+    [
+      "Can I use my own data for these analyses?",
+      "Data + Method and Data links."
+    ],
+    [
+      "Does GriidAi make the final decision?",
+      "Human-guided reliability / final boundary copy."
+    ]
+  ],
+  "final": {
+    "title": "What spatial question does your team need to answer next?",
+    "copy": "Bring your data or start with a published example, review the proposed method, run supported spatial analysis, and turn the result into evidence your team can inspect and use."
+  },
+  "seo": {
+    "title": "Geospatial Use Cases | Site Selection, Coverage, Climate, Hydrology & NDVI | GriidAi",
+    "description": "Explore geospatial use cases for site selection, coverage gaps, flood and coastal risk, hydrology, and vegetation analysis. See the data, workflow, review and outputs behind each spatial question in GriidAi."
+  }
+}
