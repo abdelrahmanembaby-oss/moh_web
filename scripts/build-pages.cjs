@@ -34,7 +34,10 @@ walk(output);
 fs.writeFileSync(path.join(output, '.nojekyll'), '');
 // Verify emitted page links and assets before uploading the artifact.
 let references = 0;
-for (const route of ['', 'platform', 'agentic-geoai', 'spatial-analysis', 'solutions', 'about', 'pricing', 'contact-sales', 'contact-sales.html', 'data', 'industries', 'use-cases', 'workflows', 'ecosystem', 'enterprise', 'ecosystem/express-interest']) {
+const routes=[];
+function findPages(dir){for(const item of fs.readdirSync(dir,{withFileTypes:true})){const file=path.join(dir,item.name);if(item.isDirectory())findPages(file);else if(item.name.endsWith('.html')){const relative=path.relative(output,file).replaceAll('\\','/');routes.push(relative==='index.html'?'':relative.endsWith('/index.html')?relative.slice(0,-11):relative);}}}
+findPages(output);
+for (const route of routes) {
   const file = route.endsWith('.html') ? path.join(output, route) : path.join(output, route, 'index.html');
   const html = fs.readFileSync(file, 'utf8');
   const links = [...html.matchAll(/\b(?:href|src)=["']([^"']+)["']/g)].map(match => match[1]);

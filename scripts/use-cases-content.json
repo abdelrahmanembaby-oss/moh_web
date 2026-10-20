@@ -2,7 +2,8 @@
   "source": {
     "filename": "GriidAi_Use_Cases_Hub_Content_UX_Development_Specification_P0.docx",
     "sha256": "f9524ca2663ca81dab068d30e908a7e10639b2d3f16a7b1b9891baa23c2b72dc",
-    "visualOverride": "User requested generated conceptual artwork instead of software screenshots."
+    "visualOverride": "User requested generated conceptual artwork instead of software screenshots.",
+    "routePolicy": "User requested a dedicated internal page for every published use case, no direct links between Use Cases and Industries, and hidden Workflows. Per-case paragraphs and sequences are retained unchanged for future expansion."
   },
   "hero": {
     "eyebrow": "Use Cases",
@@ -49,8 +50,8 @@
         "Screen",
         "Compare"
       ],
-      "fallbackUrl": "/industries/#location-intelligence",
-      "detailUrl": null,
+      "fallbackUrl": "/use-cases/site-selection/",
+      "detailUrl": "/use-cases/site-selection/",
       "publicationStatus": "Published",
       "productStatus": "Example",
       "indexStatus": "Noindex"
@@ -77,8 +78,8 @@
         "Find gaps",
         "Measure"
       ],
-      "fallbackUrl": "/workflows/#fire-station-coverage",
-      "detailUrl": null,
+      "fallbackUrl": "/use-cases/coverage/",
+      "detailUrl": "/use-cases/coverage/",
       "publicationStatus": "Published",
       "productStatus": "Example",
       "indexStatus": "Noindex"
@@ -108,8 +109,8 @@
         "Screen",
         "Assess scenarios"
       ],
-      "fallbackUrl": "/workflows/#sea-level-rise",
-      "detailUrl": null,
+      "fallbackUrl": "/use-cases/flood-coastal/",
+      "detailUrl": "/use-cases/flood-coastal/",
       "publicationStatus": "Published",
       "productStatus": "Example",
       "indexStatus": "Noindex"
@@ -144,8 +145,8 @@
         "Understand terrain / flow",
         "Measure"
       ],
-      "fallbackUrl": "/workflows/#dem-hydrology-stream-network",
-      "detailUrl": null,
+      "fallbackUrl": "/use-cases/hydrology/",
+      "detailUrl": "/use-cases/hydrology/",
       "publicationStatus": "Published",
       "productStatus": "Example",
       "indexStatus": "Noindex"
@@ -179,8 +180,8 @@
         "Measure",
         "Compare"
       ],
-      "fallbackUrl": "/workflows/#ndvi-analysis",
-      "detailUrl": null,
+      "fallbackUrl": "/use-cases/vegetation/",
+      "detailUrl": "/use-cases/vegetation/",
       "publicationStatus": "Published",
       "productStatus": "Example",
       "indexStatus": "Noindex"
