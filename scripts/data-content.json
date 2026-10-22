@@ -3,7 +3,7 @@
     "filename": "GriidAI_Data_Page_Consolidated_Content_UX_Development_Specification_P0.docx",
     "sha256": "06403086418a663d74f884d07aecfda66d4ca932d69b0493c84e5564c856613c",
     "copyPolicy": "Final website copy, supporting copy, captions, FAQ answers and public explanatory tables are retained in the chapter 3 page order. Internal verification/evidence directions are implemented or retained for handoff, never displayed as marketing text.",
-    "visualPolicy": "The user requested generated images instead of unavailable demo recordings on 2026-10-20. Three conceptual illustrations replace missing discovery/terrain, building-buffer and session-reuse captures; they are labeled Illustrative and do not establish product execution, source access or a measured result. The five original user-supplied Data screenshots remain independent captures. Never splice unrelated datasets into one apparent proof sequence.",
+    "visualPolicy": "User-approved AI illustrations replace all Data-page product screenshots except Map Export. Eight conceptual illustrations are labeled Illustrative and do not establish product execution, source access or measured results. Map Export remains the original user-supplied screenshot.",
     "chapters": [
       {
         "id": "10",
@@ -1300,7 +1300,8 @@
           ]
         ]
       ]
-    }
+    },
+    "orderBasis": "The attached consolidated document explicitly defines website order in chapter 3 and repeats it in chapter 42. Its 42 numbered chapters are specification topics, not separate public page sections. Supporting proof remains within the modules specified by chapter 3."
   },
   "pageKey": "data",
   "publicationStatus": "Published",
@@ -2215,5 +2216,72 @@
   "final": {
     "title": "Start with the data your question needs",
     "copy": "Find a supported source or bring your own dataset. Check its context, review the method, and move into spatial analysis with GriidAI."
-  }
+  },
+  "pageOrder": [
+    {
+      "order": 1,
+      "id": "",
+      "sourceLabel": "Hero"
+    },
+    {
+      "order": 2,
+      "id": "data-definition",
+      "sourceLabel": "Direct answer"
+    },
+    {
+      "order": 3,
+      "id": "data-entry-paths",
+      "sourceLabel": "Two ways to start"
+    },
+    {
+      "order": 4,
+      "id": "discover-data",
+      "sourceLabel": "Discover supported data — #discover-data"
+    },
+    {
+      "order": 5,
+      "id": "bring-your-data",
+      "sourceLabel": "Bring your own data — #bring-your-data"
+    },
+    {
+      "order": 6,
+      "id": "data-sources",
+      "sourceLabel": "Verified sources — #data-sources"
+    },
+    {
+      "order": 7,
+      "id": "supported-formats",
+      "sourceLabel": "Data types and formats — #supported-formats"
+    },
+    {
+      "order": 8,
+      "id": "data-workflows",
+      "sourceLabel": "Data inside workflows — #data-workflows"
+    },
+    {
+      "order": 9,
+      "id": "data-workspace",
+      "sourceLabel": "Data Catalog — #data-workspace"
+    },
+    {
+      "order": 10,
+      "id": "data-readiness",
+      "sourceLabel": "Trust and readiness — #data-readiness"
+    },
+    {
+      "order": 11,
+      "id": "data-reuse",
+      "sourceLabel": "Reuse data — #data-reuse"
+    },
+    {
+      "order": 12,
+      "id": "data-faq",
+      "sourceLabel": "Questions — #data-faq"
+    },
+    {
+      "order": 13,
+      "id": "data-next-step",
+      "sourceLabel": "Final CTA — #data-next-step"
+    }
+  ]
 }

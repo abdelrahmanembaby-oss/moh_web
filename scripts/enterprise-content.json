@@ -4,7 +4,8 @@
     "sha256": "473199dc23970b0df4797afc01e0221b66bedb28b5b05e42f37bc6c9d56fce1f",
     "copyPolicy": "Final public copy, source tables and section order are retained. FAQ answers are written from the document’s answer directions, which do not provide final answers. Internal editing, verification and optimization instructions are not displayed. Public stack-positioning rows translate editorial directions into customer-facing wording without adding capabilities.",
     "visualPolicy": "Conceptual illustrations follow the user’s established visual direction. They are labeled and do not represent software captures or an executed enterprise workflow. Previously supplied Data-only screenshots remain confined to Data.",
-    "routePolicy": "Use existing published hub anchors for industry/workflow relationships; use the existing Contact Sales service for qualification. No unverified detail, security or API routes are created."
+    "routePolicy": "Use existing published hub anchors for industry/workflow relationships; use the existing Contact Sales service for qualification. No unverified detail, security or API routes are created.",
+    "sectionOrderBasis": "User clarification: follow numbered content chapters 04-19 and FAQ chapter 21 rather than the grouped summary blueprint. Collaboration (13), Outputs (16) and Positioning (17) are separate H2 sections. Retain the closing CTA; omit the related Industries / use cases block at the user’s request."
   },
   "hero": {
     "eyebrow": "Enterprise",
@@ -550,15 +551,6 @@
       ]
     }
   },
-  "related": {
-    "title": "Industries / use cases",
-    "industryIds": [
-      "aec-environmental",
-      "climate-resilience",
-      "utilities-critical-infrastructure",
-      "location-intelligence"
-    ]
-  },
   "faqs": [
     [
       "How does GriidAi keep experts in control of AI-generated GIS analysis?",
@@ -666,5 +658,115 @@
       "Other"
     ]
   },
-  "requirementsCopy": "Talk to us about your governance, deployment and integration requirements."
+  "requirementsCopy": "Talk to us about your governance, deployment and integration requirements.",
+  "sectionOrder": [
+    {
+      "key": "hero",
+      "position": 1,
+      "sourceSection": 4,
+      "sourceLabel": "04 — HERO"
+    },
+    {
+      "key": "definition",
+      "position": 2,
+      "sourceSection": 5,
+      "sourceLabel": "05 — DIRECT ANSWER"
+    },
+    {
+      "key": "problem",
+      "position": 3,
+      "sourceSection": 6,
+      "sourceLabel": "06 — ENTERPRISE PROBLEM"
+    },
+    {
+      "key": "operating",
+      "position": 4,
+      "sourceSection": 7,
+      "sourceLabel": "07 — ENTERPRISE OPERATING MODEL"
+    },
+    {
+      "key": "review",
+      "position": 5,
+      "sourceSection": 8,
+      "sourceLabel": "08 — HUMAN-GOVERNED RELIABILITY"
+    },
+    {
+      "key": "reuse",
+      "position": 6,
+      "sourceSection": 9,
+      "sourceLabel": "09 — STANDARDIZE REPEATED WORK"
+    },
+    {
+      "key": "data",
+      "position": 7,
+      "sourceSection": 10,
+      "sourceLabel": "10 — DATA AND WORKSPACE CONTEXT"
+    },
+    {
+      "key": "integrations",
+      "position": 8,
+      "sourceSection": 11,
+      "sourceLabel": "11 — INTEGRATION POSTURE"
+    },
+    {
+      "key": "security",
+      "position": 9,
+      "sourceSection": 12,
+      "sourceLabel": "12 — SECURITY, GOVERNANCE AND DEPLOYMENT"
+    },
+    {
+      "key": "collaboration",
+      "position": 10,
+      "sourceSection": 13,
+      "sourceLabel": "13 — TEAM AND COLLABORATION"
+    },
+    {
+      "key": "domains",
+      "position": 11,
+      "sourceSection": 14,
+      "sourceLabel": "14 — DOMAIN WORKFLOWS"
+    },
+    {
+      "key": "proof",
+      "position": 12,
+      "sourceSection": 15,
+      "sourceLabel": "15 — ENTERPRISE PROOF STORY"
+    },
+    {
+      "key": "outputs",
+      "position": 13,
+      "sourceSection": 16,
+      "sourceLabel": "16 — OUTPUTS AND HANDOFF"
+    },
+    {
+      "key": "positioning",
+      "position": 14,
+      "sourceSection": 17,
+      "sourceLabel": "17 — WHAT GRIIDAI IS NOT REPLACING"
+    },
+    {
+      "key": "pilot",
+      "position": 15,
+      "sourceSection": 18,
+      "sourceLabel": "18 — ENTERPRISE PILOT PATH"
+    },
+    {
+      "key": "personas",
+      "position": 16,
+      "sourceSection": 19,
+      "sourceLabel": "19 — STAKEHOLDER VALUE"
+    },
+    {
+      "key": "faqs",
+      "position": 17,
+      "sourceSection": 21,
+      "sourceLabel": "21 — FAQ / GEO ANSWER BLOCKS"
+    },
+    {
+      "key": "final",
+      "position": 18,
+      "sourceSection": null,
+      "sourceLabel": "Final CTA (retained from final blueprint)"
+    }
+  ]
 }

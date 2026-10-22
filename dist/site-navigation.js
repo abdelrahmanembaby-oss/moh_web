@@ -1,7 +1,15 @@
 (() => {
   const nav=document.querySelector('#navigation'),toggle=document.querySelector('.menu-toggle');
   const groups=[...document.querySelectorAll('.nav-group')];
-  const closeMenus=except=>groups.forEach(group=>{if(group===except)return;group.querySelector('.nav-disclosure').setAttribute('aria-expanded','false');group.querySelector('.nav-submenu').hidden=true;});
+  const setMore=(button,open)=>{
+    const list=document.getElementById(button.getAttribute('aria-controls'));
+    button.setAttribute('aria-expanded',String(open));list.hidden=!open;
+    button.querySelector('[data-nav-more-label]').textContent=open?'Show less':'Show more ('+button.dataset.remaining+')';
+  };
+  const moreButtons=[...document.querySelectorAll('[data-nav-more]')];
+  moreButtons.forEach(button=>button.addEventListener('click',()=>setMore(button,button.getAttribute('aria-expanded')!=='true')));
+
+  const closeMenus=except=>groups.forEach(group=>{if(group===except)return;group.querySelector('.nav-disclosure').setAttribute('aria-expanded','false');group.querySelector('.nav-submenu').hidden=true;group.querySelectorAll('[data-nav-more]').forEach(button=>setMore(button,false));});
   const closeNav=()=>{nav?.classList.remove('open');toggle?.setAttribute('aria-expanded','false');closeMenus();};
   toggle?.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',String(open));nav?.classList.toggle('open',open);if(!open)closeMenus();});
   groups.forEach(group=>{const button=group.querySelector('.nav-disclosure'),panel=group.querySelector('.nav-submenu');button.addEventListener('click',()=>{const open=button.getAttribute('aria-expanded')!=='true';closeMenus(group);button.setAttribute('aria-expanded',String(open));panel.hidden=!open;});group.addEventListener('focusout',event=>{if(!group.contains(event.relatedTarget))closeMenus();});});

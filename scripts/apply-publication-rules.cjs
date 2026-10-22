@@ -1,5 +1,6 @@
 const config=require('./site-publication.cjs');
-const cases=require('./use-cases-content.json').records;
+const useCaseContent=require('./use-cases-content.json');
+const cases=useCaseContent.records;
 module.exports=function publicationRules(html,route){
  if(!config.workflowsEnabled&&route==='solutions')html=html.replace(/<section\b[^>]*id="workflow-proof"[^>]*>[\s\S]*?<\/section>/g,'');
  const isUseCase=route==='use-cases'||route.startsWith('use-cases/'),isIndustry=route==='industries'||route.startsWith('industries/');
@@ -16,7 +17,8 @@ module.exports=function publicationRules(html,route){
   if(!config.workflowsEnabled&&(/^\/workflows(?:\/|$)/.test(pathname)||/^#workflow-(?:proof|\d+)$/.test(url.hash)))return '';
   if(inContent&&isUseCase&&/^\/industries(?:\/|$)/.test(pathname))return '';
   if(inContent&&isIndustry&&/^\/use-cases(?:\/|$)/.test(pathname))return '';
-  if(pathname==='/use-cases/'&&url.hash){const record=cases.find(c=>'#'+c.id===url.hash&&c.detailUrl);if(record)return anchor.replace(match[0],`href="${record.detailUrl}"`);}
+  if(pathname==='/use-cases/'&&url.hash){const id=url.hash.slice(1);const record=cases.find(c=>c.id===id&&c.detailUrl);if(record)return anchor.replace(match[0],`href="${record.detailUrl}"`);if(Object.hasOwn(useCaseContent.retiredRoutes,id)){const replacement=useCaseContent.retiredRoutes[id];return anchor.replace(match[0],`href="${replacement?'/use-cases/'+replacement+'/':'/use-cases/'}"`);}}
+  const retired=pathname.match(/^\/use-cases\/([^/]+)\/?$/);if(retired&&Object.hasOwn(useCaseContent.retiredRoutes,retired[1])){const replacement=useCaseContent.retiredRoutes[retired[1]];return anchor.replace(match[0],`href="${replacement?'/use-cases/'+replacement+'/':'/use-cases/'}"`);}
   return anchor;
  });
  // Hiding an anchor-wrapped legacy card can also remove its ID. Remove local
