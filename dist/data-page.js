@@ -1,15 +1,47 @@
 (() => {
  const root=document.querySelector('.hub-data');if(!root)return;
  const emit=(event,data={})=>window.griidaiEvents?.push({event,page_key:'data',...data});
+ // Draw decorative connectors from actual card positions after each layout change.
+ const flow=root.querySelector('.dp-journey-flow');
+ if(flow){
+  const svg=flow.querySelector('svg'),cards=[...flow.querySelectorAll('li')],button=flow.parentElement.querySelector('.dp-journey-motion');
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)'),mobile=matchMedia('(max-width:700px)');
+  const ns='http://www.w3.org/2000/svg';let paused=false,frame;
+  const motion=()=>{const stop=paused||reduced.matches||document.hidden;if(stop)svg.pauseAnimations?.();else svg.unpauseAnimations?.();button.hidden=reduced.matches;button.textContent=paused?'Resume motion':'Pause motion';button.setAttribute('aria-pressed',String(paused));};
+  const draw=()=>{
+   frame=undefined;const base=flow.getBoundingClientRect();if(!base.width||!base.height)return;
+   svg.setAttribute('viewBox',`0 0 ${base.width} ${base.height}`);svg.replaceChildren();
+   const bounds=cards.map(card=>{const r=card.getBoundingClientRect();return {left:r.left-base.left,right:r.right-base.left,top:r.top-base.top,bottom:r.bottom-base.top,cx:r.left-base.left+r.width/2,cy:r.top-base.top+r.height/2};});
+   bounds.slice(0,-1).forEach((a,i)=>{
+    const b=bounds[i+1];let d;
+    if(mobile.matches){const middle=(a.cy+b.cy)/2;d=`M ${a.left} ${a.cy} C ${a.left-30} ${a.cy} ${a.left-30} ${middle-16} ${a.left-15} ${middle} C ${a.left} ${middle+16} ${b.left-30} ${b.cy} ${b.left} ${b.cy}`;}
+    else if(Math.abs(a.top-b.top)<10){const right=b.cx>a.cx,sx=right?a.right:a.left,ex=right?b.left:b.right,mid=(sx+ex)/2;d=`M ${sx} ${a.cy} C ${mid} ${a.cy-22} ${mid} ${b.cy+22} ${ex} ${b.cy}`;}
+    else {const mid=(a.bottom+b.top)/2;d=`M ${a.cx} ${a.bottom} C ${a.cx+25} ${mid} ${b.cx-25} ${mid} ${b.cx} ${b.top}`;}
+    const path=document.createElementNS(ns,'path');path.setAttribute('d',d);path.setAttribute('class','dp-flow-rope');svg.append(path);
+    const dot=document.createElementNS(ns,'circle');dot.setAttribute('r','3.5');dot.setAttribute('class','dp-flow-dot');
+    const animation=document.createElementNS(ns,'animateMotion');animation.setAttribute('path',d);animation.setAttribute('dur','3.6s');animation.setAttribute('begin',`${i*.18}s`);animation.setAttribute('repeatCount','indefinite');dot.append(animation);svg.append(dot);
+   });motion();
+  };
+  const schedule=()=>{if(frame===undefined)frame=requestAnimationFrame(draw);};
+  button.addEventListener('click',()=>{paused=!paused;motion();});
+  reduced.addEventListener('change',motion);document.addEventListener('visibilitychange',motion);
+  if(typeof ResizeObserver!=='undefined'){const observer=new ResizeObserver(schedule);observer.observe(flow);cards.forEach(card=>observer.observe(card));}
+  addEventListener('resize',schedule,{passive:true});document.fonts?.ready.then(schedule);schedule();
+ }
  const normalize=s=>s.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'');
  const filters=new Map(),states={};
  root.querySelectorAll('[data-data-filter]').forEach(form=>{
   const kind=form.dataset.dataFilter,items=[...root.querySelectorAll(kind==='format'?'[data-format-id]':'[data-provider-id]')],empty=root.querySelector(`[data-${kind}-empty]`),count=form.querySelector('.dp-filter-count'),query=form.elements.q;
   const groups=new Map();form.querySelectorAll('input[type=checkbox]').forEach(input=>{if(!groups.has(input.name))groups.set(input.name,[]);groups.get(input.name).push(input);});
+  const filterSummary=form.querySelector('.dp-filter-options>summary'),activeFilters=document.createElement('span');
+  activeFilters.className='dp-active-filters';activeFilters.setAttribute('aria-hidden','true');activeFilters.hidden=true;filterSummary?.append(activeFilters);
   const selected=name=>(groups.get(name)||[]).filter(i=>i.checked).map(i=>i.value);
   const selections=()=>Object.fromEntries([...groups].map(([name])=>[name,selected(name)]));
   const update=(message='')=>{
-   const words=normalize(query.value.trim()).split(/\s+/).filter(Boolean),chosen=selections();let visible=0;
+   const words=normalize(query.value.trim()).split(/\s+/).filter(Boolean),chosen={family:[],direction:[],status:[],...selections()};let visible=0;
+   const activeCount=Object.values(chosen).reduce((n,values)=>n+values.length,0);
+   activeFilters.hidden=activeCount===0;activeFilters.textContent=String(activeCount);
+   filterSummary?.setAttribute('aria-label',activeCount?`Filters, ${activeCount} active`:'Filters');
    items.forEach(item=>{
     let match=words.every(word=>normalize(item.dataset.search||'').includes(word));
     if(kind==='format'){
@@ -49,7 +81,7 @@
  }
  addEventListener('hashchange',()=>reveal(true));reveal(Boolean(location.hash));
  root.addEventListener('click',e=>{
-  const family=e.target.closest('[data-family] a,a[data-family]');if(family?.matches('a[data-family]')){const controller=filters.get('format');controller.clear();controller.groups.get('family').forEach(input=>input.checked=input.value===family.dataset.family);controller.update();emit('data_family_interaction',{family:family.dataset.family});}
+  const family=e.target.closest('[data-family] a,a[data-family]');if(family?.matches('a[data-family]')){const controller=filters.get('format');if(controller){controller.clear();const options=controller.groups.get('family');if(options)options.forEach(input=>input.checked=input.value===family.dataset.family);else controller.query.value=family.dataset.family;controller.update();emit('data_family_interaction',{family:family.dataset.family});}}
   const link=e.target.closest('a');if(!link)return;
   const section=link.closest('section')?.id||'hero';
   if(link.dataset.dataCta){const target=new URL(link.href),type=target.origin===location.origin?(target.hash?'section':'contact'):'signup';emit('cta_click',{section_key:section,cta_id:link.dataset.dataCta,destination_type:type});}

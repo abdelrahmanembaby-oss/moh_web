@@ -2,7 +2,7 @@
   const root=document.querySelector('.hub-enterprise');if(!root)return;
   const event=(name,properties={})=>window.griidaiEvents?.push({event:name,...properties});
   const frames=[...root.querySelectorAll('.ep-proof-frame')],wide=matchMedia('(min-width:768px)');
-  const layout=()=>{frames.forEach(frame=>{frame.open=false;frame.removeAttribute('name');});if(wide.matches)frames.forEach(frame=>frame.open=true);else{frames.forEach(frame=>frame.setAttribute('name','enterprise-proof-sequence'));frames[0].open=true;}};layout();wide.addEventListener('change',()=>{layout();reveal();});
+  const layout=()=>{if(!frames.length)return;frames.forEach(frame=>{frame.open=false;frame.removeAttribute('name');});if(wide.matches)frames.forEach(frame=>frame.open=true);else{frames.forEach(frame=>frame.setAttribute('name','enterprise-proof-sequence'));frames[0].open=true;}};layout();wide.addEventListener('change',()=>{layout();reveal();});
   const reveal=()=>{let id;try{id=decodeURIComponent(location.hash.slice(1));}catch{return;}const target=document.getElementById(id);if(!target?.matches('.ep-proof-frame'))return;target.open=true;requestAnimationFrame(()=>target.scrollIntoView({block:'start',behavior:'instant'}));};reveal();addEventListener('hashchange',reveal);
   root.addEventListener('click',e=>{
     const anchor=e.target.closest('a');if(!anchor)return;

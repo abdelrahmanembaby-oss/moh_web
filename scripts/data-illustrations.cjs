@@ -1,4 +1,8 @@
 module.exports={
+  "data-paths": {
+    "label": "Your files and supported sources, connected to the workspace.",
+    "alt": "AI concept illustration labeled Your files and Supported sources, with arrows connecting a folder and globe to one layered terrain Workspace. The final labels read Inspect, Select, Analyze."
+  },
   "discovery-terrain": {
     "label": "From a study area to terrain analysis.",
     "alt": "Conceptual illustration of a coastal study area, selected boundary and aligned elevation layers beside a terrain result; not a Miami capture or measured analysis."

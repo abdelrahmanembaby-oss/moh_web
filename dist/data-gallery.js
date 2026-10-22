@@ -16,7 +16,7 @@
     event.preventDefault();trigger=link;
     const source=link.querySelector('img');
     dialog.querySelector('#data-viewer-title').textContent=link.dataset.imageLabel;
-    dialog.querySelector('#data-viewer-caption').textContent=link.closest('figure').querySelector('figcaption>span').textContent;
+    dialog.querySelector('#data-viewer-caption').textContent=link.closest('figure').querySelector('figcaption>span')?.textContent||link.dataset.imageLabel||source.alt;
     image.src=link.href;image.alt=source.alt;image.width=Number(source.getAttribute('width'));image.height=Number(source.getAttribute('height'));
     stage.style.setProperty('--image-width',source.getAttribute('width')+'px');fit();
     dialog.showModal();dialog.querySelector('.data-viewer-close').focus();

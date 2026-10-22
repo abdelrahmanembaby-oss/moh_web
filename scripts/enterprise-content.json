@@ -5,7 +5,7 @@
     "copyPolicy": "Final public copy, source tables and section order are retained. FAQ answers are written from the document’s answer directions, which do not provide final answers. Internal editing, verification and optimization instructions are not displayed. Public stack-positioning rows translate editorial directions into customer-facing wording without adding capabilities.",
     "visualPolicy": "Conceptual illustrations follow the user’s established visual direction. They are labeled and do not represent software captures or an executed enterprise workflow. Previously supplied Data-only screenshots remain confined to Data.",
     "routePolicy": "Use existing published hub anchors for industry/workflow relationships; use the existing Contact Sales service for qualification. No unverified detail, security or API routes are created.",
-    "sectionOrderBasis": "User clarification: follow numbered content chapters 04-19 and FAQ chapter 21 rather than the grouped summary blueprint. Collaboration (13), Outputs (16) and Positioning (17) are separate H2 sections. Retain the closing CTA; omit the related Industries / use cases block at the user’s request."
+    "sectionOrderBasis": "Follow the numbered content chapters, with later owner exclusions. The owner removed the proof story (15), outputs (16), positioning (17), pilot path (18), stakeholder value (19), FAQs (21) and final CTA. The first eleven sections and the shared site footer remain."
   },
   "hero": {
     "eyebrow": "Enterprise",
@@ -725,48 +725,6 @@
       "position": 11,
       "sourceSection": 14,
       "sourceLabel": "14 — DOMAIN WORKFLOWS"
-    },
-    {
-      "key": "proof",
-      "position": 12,
-      "sourceSection": 15,
-      "sourceLabel": "15 — ENTERPRISE PROOF STORY"
-    },
-    {
-      "key": "outputs",
-      "position": 13,
-      "sourceSection": 16,
-      "sourceLabel": "16 — OUTPUTS AND HANDOFF"
-    },
-    {
-      "key": "positioning",
-      "position": 14,
-      "sourceSection": 17,
-      "sourceLabel": "17 — WHAT GRIIDAI IS NOT REPLACING"
-    },
-    {
-      "key": "pilot",
-      "position": 15,
-      "sourceSection": 18,
-      "sourceLabel": "18 — ENTERPRISE PILOT PATH"
-    },
-    {
-      "key": "personas",
-      "position": 16,
-      "sourceSection": 19,
-      "sourceLabel": "19 — STAKEHOLDER VALUE"
-    },
-    {
-      "key": "faqs",
-      "position": 17,
-      "sourceSection": 21,
-      "sourceLabel": "21 — FAQ / GEO ANSWER BLOCKS"
-    },
-    {
-      "key": "final",
-      "position": 18,
-      "sourceSection": null,
-      "sourceLabel": "Final CTA (retained from final blueprint)"
     }
   ]
 }

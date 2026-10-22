@@ -48,7 +48,7 @@ function faq(items){return `<div class="hub-faq">${items.map(([q,a])=>`<details>
 function jump(items){return `<div class="hub-jump"><div class="container"><details open><summary>On this page ${arrow}</summary><div class="hub-jump-links">${items.map(([name,id])=>`<a href="#${id}">${esc(name)}</a>`).join('')}</div></details></div></div>`;}
 function hero(name,title,copy,actions,visual,meta){return `<section class="container hub-hero"><div class="hub-breadcrumbs"><a href="/">Home</a><span aria-hidden="true">/</span><span>${esc(name)}</span></div><div class="hub-hero-grid"><div><span class="eyebrow">${esc(meta||name)}</span><h1>${esc(title)}</h1>${paragraphs(copy)}<div class="actions">${actions}</div></div>${visual}</div></section>`;}
 function productFigure(caption){return `<figure class="hub-product"><div class="hub-frame-bar"><i></i><i></i><i></i><span>THE GRIIDAI WORKSPACE</span></div><img src="/assets/homepage-video-poster-1280.webp" srcset="/assets/homepage-video-poster-640.webp 640w, /assets/homepage-video-poster-1280.webp 1280w" sizes="(max-width: 800px) 100vw, 52vw" alt="GriidAi workspace welcome screen with entry points for uploading data, spatial analysis and workflow automation" width="1280" height="720"><figcaption>${esc(caption)}</figcaption></figure>`;}
-function dataFigure(key,{hero=false}={}){const media=dataMedia[key];const file=path.join(root,'assets/data',media.file);const bytes=fs.readFileSync(file);const width=bytes.readUInt32BE(16),height=bytes.readUInt32BE(20);const url='/assets/data/'+media.file;return `<figure class="data-product-figure data-figure-${key}${hero?' data-figure-hero':''}"><a class="data-image-link" href="${url}" data-image-viewer data-image-label="${esc(media.label)}" aria-label="Enlarge: ${esc(media.label)}" aria-describedby="data-caption-${key}"><img src="${url}" alt="${esc(media.alt)}" width="${width}" height="${height}" loading="${hero?'eager':'lazy'}" decoding="async"${hero?' fetchpriority="high"':''}><span class="data-enlarge-label" aria-hidden="true">Enlarge image ↗</span></a><figcaption id="data-caption-${key}"><strong>${esc(media.label)}</strong><span>${esc(media.caption)}</span></figcaption></figure>`;}
+function dataFigure(key,{hero=false}={}){const media=dataMedia[key];const file=path.join(root,'assets/data',media.file);const bytes=fs.readFileSync(file);const width=bytes.readUInt32BE(16),height=bytes.readUInt32BE(20);const url='/assets/data/'+media.file;return `<figure class="data-product-figure data-figure-${key}${hero?' data-figure-hero':''}"><a class="data-image-link" href="${url}" data-image-viewer data-image-label="${esc(media.label)}" aria-label="Enlarge: ${esc(media.label)}" aria-describedby="data-caption-${key}"><img src="${url}" alt="${esc(media.alt)}" width="${width}" height="${height}" loading="${hero?'eager':'lazy'}" decoding="async"${hero?' fetchpriority="high"':''}></a><figcaption id="data-caption-${key}"><strong>${esc(media.label)}</strong><span>${esc(media.caption)}</span></figcaption></figure>`;}
 function methodFigure(title,items){return `<aside class="hub-method-figure"><div class="hub-frame-bar"><span>ILLUSTRATIVE METHOD STRUCTURE</span><span aria-hidden="true">↗</span></div><p class="hub-method-question">${esc(title)}</p>${items.map(([a,b],i)=>`<div class="hub-method-row"><span>${String(i+1).padStart(2,'0')}</span><div><strong>${esc(a)}</strong><p>${esc(b)}</p></div>${i===items.length-1?'<span aria-hidden="true">✓</span>':''}</div>`).join('')}<div class="hub-method-caption">Visible inputs. Reviewable steps. Expert judgment.</div></aside>`;}
 function mapArt(kind){const base='<path d="M-30 70 Q100 20 180 90T440 75M-30 150Q110 100 200 165T450 160M-20 235Q100 180 210 245T450 230" stroke="#fff" stroke-width="9" fill="none"/><path d="M70-20L140 290M250-30L280 300M-10 120L430 110" stroke="#f7faf6" stroke-width="5" fill="none"/>';
 let shapes=kind===0?'<path d="M80-30Q310 75 175 125T230 300" stroke="#5595a5" stroke-width="7" fill="none"/><path d="M130 70L220 100M185 145L115 190M185 200L285 250" stroke="#5595a5" stroke-width="3"/>':kind===1?'<path d="M65 40L160 65 145 145 60 120ZM180 60L270 40 285 130 200 150ZM60 160L150 180 165 250 80 235ZM205 180L300 165 340 240 235 255Z" fill="#71a67f" stroke="#eef5e9" stroke-width="3"/>':kind===2?'<circle cx="190" cy="145" r="80" fill="#28758820" stroke="#287588" stroke-dasharray="5 6"/><circle cx="280" cy="185" r="62" fill="#28758815" stroke="#287588" stroke-dasharray="5 6"/><circle cx="190" cy="145" r="7" fill="#287588"/><circle cx="280" cy="185" r="7" fill="#287588"/>':'<path d="M-20 240Q120 90 230 150T440 40L440 300H-20Z" fill="#72a4b8" opacity=".75"/><path d="M-20 205Q120 60 230 120T440 10" fill="none" stroke="#287588" stroke-width="2" stroke-dasharray="7 5"/>';
@@ -76,6 +76,52 @@ function enterprisePage(){return renderEnterprise({esc,hero,jump,section,paragra
 
 function interestFormPage(){return renderEcosystemForm({esc,paragraphs,link});}
 
+// A local Data review must not regenerate other hubs or shared navigation.
+if(process.argv.includes('--data-only')){
+ const file=path.join(root,'data/index.html');
+ const html=fs.readFileSync(file,'utf8');
+ const main=/<main\b[^>]*class="[^"]*\bhub-data\b[^"]*"[^>]*>[\s\S]*?<\/main>/;
+ if(!main.test(html))throw new Error('Existing Data page shell was not found');
+ const body=publicationRules(dataPage(),'data');
+ fs.writeFileSync(file,html.replace(main,match=>match.slice(0,match.indexOf('>')+1)+body+'</main>'));
+ console.log('Built Data only; retained its existing header, footer and metadata.');
+ process.exit(0);
+}
+
+// Preserve the current site shell when editing only Enterprise content.
+if(process.argv.includes('--enterprise-only')){
+ const file=path.join(root,'enterprise/index.html');
+ const html=fs.readFileSync(file,'utf8');
+ const main=/<main\b[^>]*class="[^"]*\bhub-enterprise\b[^"]*"[^>]*>[\s\S]*?<\/main>/;
+ if(!main.test(html))throw new Error('Existing Enterprise page shell was not found');
+ const body=publicationRules(enterprisePage(),'enterprise');
+ fs.writeFileSync(file,html.replace(main,match=>match.slice(0,match.indexOf('>')+1)+body+'</main>'));
+ console.log('Built Enterprise only; retained its existing header, footer and metadata.');
+ process.exit(0);
+}
+
+if(process.argv.includes('--use-cases-only')){
+ const file=path.join(root,'use-cases/index.html');
+ const html=fs.readFileSync(file,'utf8');
+ const main=/<main\b[^>]*class="[^"]*\bhub-use-cases\b[^"]*"[^>]*>[\s\S]*?<\/main>/;
+ if(!main.test(html))throw new Error('Existing Use Cases page shell was not found');
+ const body=publicationRules(useCasesPage(),'use-cases');
+ fs.writeFileSync(file,html.replace(main,match=>match.slice(0,match.indexOf('>')+1)+body+'</main>'));
+ console.log('Built Use Cases only; retained its existing shell and detail pages.');
+ process.exit(0);
+}
+
+if(process.argv.includes('--ecosystem-only')){
+ const file=path.join(root,'ecosystem/index.html');
+ const html=fs.readFileSync(file,'utf8');
+ const main=/<main\b[^>]*class="[^"]*\bhub-ecosystem\b[^"]*"[^>]*>[\s\S]*?<\/main>/;
+ if(!main.test(html))throw new Error('Existing Ecosystem page shell was not found');
+ const body=publicationRules(ecosystemPage(),'ecosystem');
+ fs.writeFileSync(file,html.replace(main,match=>match.slice(0,match.indexOf('>')+1)+body+'</main>'));
+ console.log('Built Ecosystem only; retained its existing shell.');
+ process.exit(0);
+}
+
 const pages=[
 ['data',dataContent.seo.title,dataContent.seo.description,dataPage],
 ['industries',industriesContent.seo.title,industriesContent.seo.description,industriesPage],
@@ -92,9 +138,9 @@ if(route==='workflows')schema['@graph'].push({'@type':'ItemList',itemListElement
 const heroImage=detailRecord?detailRecord.video.thumbnailBase:route==='use-cases'?useCasesContent.hero.video.thumbnailBase:route==='workflows'?'/assets/workflows/dem-hydrology-v1':route==='industries'?'/assets/industries/cross-industry-v1':route==='enterprise'?'/assets/enterprise/expert-control-v1':null;
 const dataPreload=route==='data'?'<link rel="preload" as="image" href="/assets/data/illustrations/connected-data-v1-1280.webp" imagesrcset="/assets/data/illustrations/connected-data-v1-640.webp 640w, /assets/data/illustrations/connected-data-v1-1280.webp 1280w" imagesizes="(max-width: 700px) 100vw, 520px" fetchpriority="high">':'';
 const imagePreload=heroImage?`<link rel="preload" as="image" href="${heroImage}-1280.webp" imagesrcset="${heroImage}-640.webp 640w, ${heroImage}-1280.webp 1280w" imagesizes="(max-width: ${['industries','enterprise'].includes(route)?767:700}px) 100vw, (max-width: 1050px) 50vw, 40vw" fetchpriority="high">`:'';
-let html=`<!doctype html><html lang="en"><head>${imagePreload}${dataPreload}<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title><meta name="description" content="${esc(description)}"><meta name="robots" content="${route.includes('express-interest')||(detailRecord&&detailRecord.indexStatus==='Noindex')?'noindex,follow':'index,follow'}"><link rel="canonical" href="${url}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:type" content="website"><meta property="og:url" content="${url}"><meta property="og:image" content="${origin}${detailRecord?detailRecord.video.thumbnailBase+'-1280.webp':route==='use-cases'?useCasesContent.hero.video.thumbnailBase+'-1280.webp':route==='data'?'/assets/data/illustrations/connected-data-v1-1280.webp':route==='ecosystem'?'/assets/ecosystem/ecosystem-social-v1.png':'/assets/homepage-video-poster-1280.webp'}"><link rel="icon" type="image/png" sizes="180x180" href="/assets/griidai-icon.png"><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/site-shell.css"><link rel="stylesheet" href="/hubs.css"><script type="application/ld+json">${JSON.stringify(schema).replace(/</g,'\\u003c')}</script><script src="/app.js" defer></script><script src="/hubs.js" defer></script></head><body><a class="skip" href="#main">Skip to content</a>${header('/'+route+'/')}<main id="main" class="hub-page hub-${route.split('/')[0]}">${render()}</main>${footer()}</body></html>`;
+let html=`<!doctype html><html lang="en"><head>${imagePreload}${dataPreload}<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title><meta name="description" content="${esc(description)}"><meta name="robots" content="${route.includes('express-interest')||(detailRecord&&detailRecord.indexStatus==='Noindex')?'noindex,follow':'index,follow'}"><link rel="canonical" href="${url}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:type" content="website"><meta property="og:url" content="${url}"><meta property="og:image" content="${origin}${detailRecord?detailRecord.video.thumbnailBase+'-1280.webp':route==='use-cases'?useCasesContent.hero.video.thumbnailBase+'-1280.webp':route==='data'?'/assets/data/illustrations/connected-data-v1-1280.webp':route==='ecosystem'?'/assets/ecosystem/ecosystem-social-v1.png':'/assets/homepage-video-poster-1280.webp'}"><link rel="icon" type="image/png" sizes="180x180" href="/assets/griidai-icon.png"><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/site-shell.css"><link rel="stylesheet" href="/hubs.css?v=section-nav-1"><script type="application/ld+json">${JSON.stringify(schema).replace(/</g,'\\u003c')}</script><script src="/app.js" defer></script><script src="/hubs.js?v=section-nav-1" defer></script></head><body><a class="skip" href="#main">Skip to content</a>${header('/'+route+'/')}<main id="main" class="hub-page hub-${route.split('/')[0]}">${render()}</main>${footer()}</body></html>`;
 html=publicationRules(html,route);
-const dir=path.join(root,route);fs.mkdirSync(dir,{recursive:true});fs.writeFileSync(path.join(dir,'index.html'),html.replace('src="/app.js"','src="/site-navigation.js"').replace('</head>',(route==='data'?'<link rel="stylesheet" href="/data-gallery.css"><link rel="stylesheet" href="/data-page.css"><script src="/data-gallery.js" defer></script><script src="/data-page.js" defer></script>':route==='workflows'?'<link rel="stylesheet" href="/workflows-page.css"><script src="/workflows-page.js" defer></script>':route.startsWith('use-cases')?'<link rel="stylesheet" href="/use-cases-page.css"><script src="/use-cases-page.js" defer></script>':route==='industries'?'<link rel="stylesheet" href="/industries-page.css"><script src="/industries-page.js" defer></script>':route==='enterprise'?'<link rel="stylesheet" href="/enterprise-page.css"><script src="/enterprise-page.js" defer></script>':route.startsWith('ecosystem')?'<link rel="stylesheet" href="/ecosystem-page.css"><script src="/ecosystem-page.js" defer></script>':'')+'</head>')+'\n');}
+const dir=path.join(root,route);fs.mkdirSync(dir,{recursive:true});fs.writeFileSync(path.join(dir,'index.html'),html.replace('src="/app.js"','src="/site-navigation.js"').replace('</head>',(route==='data'?'<link rel="stylesheet" href="/data-gallery.css"><link rel="stylesheet" href="/data-page.css?v=compact-search-1"><script src="/data-gallery.js" defer></script><script src="/data-page.js?v=compact-search-1" defer></script>':route==='workflows'?'<link rel="stylesheet" href="/workflows-page.css"><script src="/workflows-page.js" defer></script>':route.startsWith('use-cases')?'<link rel="stylesheet" href="/use-cases-page.css"><script src="/use-cases-page.js" defer></script>':route==='industries'?'<link rel="stylesheet" href="/industries-page.css"><script src="/industries-page.js" defer></script>':route==='enterprise'?'<link rel="stylesheet" href="/enterprise-page.css"><script src="/enterprise-page.js" defer></script>':route.startsWith('ecosystem')?'<link rel="stylesheet" href="/ecosystem-page.css"><script src="/ecosystem-page.js" defer></script>':'')+'</head>')+'\n');}
 // Retire the five generic pages without breaking existing bookmarks.
 for(const [oldId,newId] of Object.entries(useCasesContent.retiredRoutes)){
  const target=newId?'/use-cases/'+newId+'/':'/use-cases/';
